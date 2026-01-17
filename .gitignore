@@ -1,0 +1,9 @@
+# SSH keys
+*.pem
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
+
