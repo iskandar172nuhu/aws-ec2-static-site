@@ -54,6 +54,22 @@ Configures security group rules
 Installs and configures Nginx
 Deploys the static website automatically using cloud-init
 
+## Docker (Local Run)
+
+Build:
+```bash
+docker build -t ec2-static-site:1.0 .
+docker run -d --name ec2-static-site -p 8080:80 ec2-static-site:1.0
+
+## Verify
+```bash
+curl http://localhost:8080
+curl http://localhost:8080/health
+
+## Stop
+```bash
+docker rm -f ec2-static-site
+
 
 ## Verification:
 
@@ -92,4 +108,4 @@ This terminates the EC2 instance and deletes associated security groups.
 
 
 ## Author: Iskandar Nuhu
-ß
+
