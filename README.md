@@ -107,5 +107,56 @@ To destroy all AWS resources created by this project and prevent unnecessary cha
 This terminates the EC2 instance and deletes associated security groups.
 
 
+## CI/CD Pipeline (GitHub Actions)
+
+This project includes an automated CI/CD pipeline implemented using GitHub Actions to build, test, and validate the Docker image on every push to the main branch.
+
+Pipeline Overview
+
+The workflow is triggered automatically when changes are pushed to the repository. It performs the following steps:
+
+Checkout Source Code
+Retrieves the latest version of the repository.
+
+Set Up Docker Buildx
+Enables advanced Docker build capabilities used in modern CI environments.
+
+Authenticate to Docker Hub (Securely)
+Logs in using GitHub encrypted secrets:
+
+DOCKERHUB_USERNAME
+
+DOCKERHUB_TOKEN
+
+Build Docker Image
+Builds the container image using the project Dockerfile.
+
+Run Container & Health Check
+Starts the container and validates the application using the /health endpoint to ensure the service is running correctly.
+
+Fail Fast on Errors
+If any step fails (build, run, or health check), the pipeline exits immediately, preventing broken images from being published.
+
+## CI Workflow File
+
+The CI pipeline is defined in:
+```bash
+.github/workflows/docker.yml
+
+This file controls how Docker images are built and tested in a clean, repeatable environment.
+
+Security Considerations
+
+Docker Hub credentials are stored as GitHub Secrets
+
+Secrets are never logged or exposed in workflow output
+
+Sensitive files are excluded using .dockerignore
+
+SSH keys and tokens are not committed to version control
+
+The CI pipeline builds and validates the Docker image.
+Image publishing to Docker Hub can be enabled by adding a push step.
+
 ## Author: Iskandar Nuhu
 
