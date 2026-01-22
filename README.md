@@ -9,6 +9,7 @@ The solution follows DevOps best practices including automation, secure access c
 ---
 
 ## Architecture
+
 User
 |
 | HTTP (Port 80)
@@ -28,6 +29,7 @@ EC2 Instance (Ubuntu 22.04)
 ---
 
 ## Project Structure
+
 aws-ec2-static-site/
 ├── site/
 │ └── index.html
@@ -157,6 +159,97 @@ SSH keys and tokens are not committed to version control
 
 The CI pipeline builds and validates the Docker image.
 Image publishing to Docker Hub can be enabled by adding a push step.
+
+🏗 Infrastructure Provisioning (Terraform)
+
+This project uses Terraform to provision AWS infrastructure in a repeatable and production-ready way.
+
+Terraform replaces manual AWS CLI provisioning and ensures infrastructure is:
+
+Declarative
+
+Version-controlled
+
+Reproducible
+
+Secure by default
+
+Resources provisioned
+
+EC2 instance (Ubuntu 22.04)
+
+Security Group:
+
+HTTP (80) open to the internet
+
+SSH (22) restricted to a single trusted IP
+
+Key pair for SSH access
+
+Cloud-init user-data to install and configure Nginx automatically
+🔁 Architecture Flow
+Developer
+  |
+  | terraform apply
+  v
+Terraform
+  |
+  | creates
+  v
+AWS EC2 (Ubuntu)
+  |
+  | cloud-init
+  v
+Nginx installed & started
+  |
+  v
+Static website available on port 80
+
+▶️ Terraform Usage
+
+From the project root:
+cd terraform
+terraform init
+terraform apply
+
+Terraform outputs:
+
+Public IP address
+
+Website URL
+
+Health check endpoint
+
+🔐 Security Considerations
+
+SSH access is restricted to a single CIDR (your public IP)
+
+No private keys are committed to version control
+
+Terraform state files and provider binaries are ignored via .gitignore
+
+Infrastructure can be safely destroyed using:
+
+terraform destroy
+
+
+🧹 State & Git Hygiene
+
+The following files are intentionally excluded from version control:
+
+.terraform/
+
+terraform.tfstate
+
+terraform.tfvars
+
+This prevents:
+
+Accidental secret leakage
+
+Large binary commits
+
+Corrupted Git history
 
 ## Author: Iskandar Nuhu
 
