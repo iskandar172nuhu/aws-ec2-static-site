@@ -116,7 +116,8 @@ No resources left running
 
 Zero ongoing AWS cost
 
-Repository Structure
+## Repository Structure
+```
 .
 ├── .github/workflows/      # CI pipeline
 ├── terraform/              # Infrastructure as Code
@@ -125,10 +126,14 @@ Repository Structure
 ├── .dockerignore
 ├── .gitignore
 └── README.md
+```
 
 How to Reproduce
+
 Clone the repository
+
 git clone https://github.com/iskandar172nuhu/aws-ec2-static-site.git
+
 cd aws-ec2-static-site
 
 Deploy infrastructure
